@@ -49,6 +49,8 @@ void checktemp(){
 
 void setup(){
 	Serial.begin(9600);
+	dht.begin();
+
 	pinMode(13,OUTPUT);
 
 	thread_Cli->onRun(checktemp);

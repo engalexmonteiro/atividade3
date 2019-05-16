@@ -13,6 +13,10 @@ float temp_max=25;
 float temp_current=0;
 unsigned int period=1000;
 
+float hum_min;
+float hum_max;
+float hum_current;
+
 ThreadController controll = new ThreadController();
 Thread *thread_Cli = new Thread();
 Thread *thread_CheckTemp = new Thread();
@@ -22,6 +26,7 @@ void checktemp(){
 
 	  float h = 60; //dht.readHumidity();
 	  float t = 20; //dht.readTemperature();
+
 	  // testa se retorno é valido, caso contrário algo está errado.
 	  if (isnan(t) || isnan(h))
 	  {
@@ -29,7 +34,9 @@ void checktemp(){
 	  }
 	  else{
 
-		  temp_current = t;
+		temp_current = t;
+		hum_current = h;
+
 		if(temp_current<temp_min)
 				Serial.println("ajustar");
    	    if(temp_current>temp_max)
@@ -37,8 +44,7 @@ void checktemp(){
 
 	  }
 
-
-	  	  delay(1000);
+	  delay(period);
 }
 
 void setup(){
@@ -50,7 +56,6 @@ void setup(){
 
 	thread_CheckTemp->onRun(cli_init);
 	thread_CheckTemp->setInterval(0);
-
 
 	controll.add(thread_Cli);
 	controll.add(thread_CheckTemp);

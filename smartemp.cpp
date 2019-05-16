@@ -8,11 +8,6 @@
 #include "smartemp.h"
 
 
-#define DHTPIN  A1 // pino que estamos conectado
-#define DHTTYPE DHT11 // DHT 11
-
-
-
 float temp_min=16;
 float temp_max=25;
 float temp_current=0;
